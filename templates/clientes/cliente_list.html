@@ -1,0 +1,44 @@
+{% extends 'base/panel_admin.html' %}
+
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light-subtle border rounded-3 p-4 d-flex justify-content-between align-items-center flex-wrap custom-gradient text-white">
+        <h3 class="mb-0">Gestión Clientes</h3>
+        <div>
+          <a href="#" class="btn btn-success btn-sm"><i class="bi bi-plus"></i>
+            Registrar cliente</a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead class="table-primary">
+                <tr>
+                <th>NOMBRES</th>
+                <th>APELLIDOS</th>
+                <th>EMAIL</th>
+                <th>TELÉFONO</th>
+                <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.telefono }}</td>
+                    <td>
+                        <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                        <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a>
+                        <a href="#" class="btn btn-info btn-sm"><i class="bi bi-eye"></i> Detalle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock content%}
