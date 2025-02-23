@@ -10,7 +10,7 @@ class ClienteCreateForm(forms.ModelForm):
             'nombre': forms.TextInput(attrs={'class': 'form-control border-primary shadow'}),
             'apellido': forms.TextInput(attrs={'class': 'form-control border-primary shadow'}),
             'email': forms.EmailInput(attrs={'class': 'form-control border-primary shadow'}),
-            'telefono': forms.TextInput(attrs={'class': 'form-control border-primary shadow'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control border-primary shadow', 'placeholder': 'Ejemplo: +591 12345678'}),
             'direccion': forms.TextInput(attrs={'class': 'form-control border-primary shadow'}),
         }
         

@@ -1,0 +1,18 @@
+Todas las dependencias que requiere el proyecto se encuentran
+en el archivo requirements.txt
+
+El usuario y contraseña y la configuración para la conexión con
+la base de datos se encuentra en el archivo secret.json como tambien
+la llave secreta, el cual ya esta configurado para que se pueda
+acceder desde el archivo settings.py
+
+Se tiene una copia de la base de datos que incluye algunos registros
+que se encuentran en el archivo db_proyecto.dump para importar directamente
+a postgreSQL
+
+Si importo la base de datos, para poder ingresar por el Login o el admin usar:
+Usuario: albaro
+Contraseña: 123456
+
+
+
