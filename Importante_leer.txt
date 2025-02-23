@@ -1,5 +1,11 @@
-Todas las dependencias que requiere el proyecto se encuentran
-en el archivo requirements.txt
+El proyecto esta desarrollado con:
+Python v3.12.3
+Django v5.1.6
+Bootstrap v5.3.3
+Sweetalert2 v11.10.8
+
+Todas las dependencias o librerias que requiere el proyecto se
+encuentran en el archivo requirements.txt
 
 El usuario y contraseña y la configuración para la conexión con
 la base de datos se encuentra en el archivo secret.json como tambien
