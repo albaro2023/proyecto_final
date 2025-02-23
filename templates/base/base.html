@@ -13,5 +13,35 @@
     {% block structure %}
     {% endblock structure %}
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+    {% block scripts %}
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+            <script>
+              Swal.fire({
+                title: 'Oops...',
+                text: '{{ message }}',
+                icon: 'error',
+                customClass: {
+                  confirmButton: 'btn btn-primary'
+                }
+              });
+            </script>
+          {% else %}
+            <script>
+              Swal.fire({
+                title: 'Felicitaciones',
+                text: '{{ message }}',
+                icon: 'success',
+                customClass: {
+                  confirmButton: 'btn btn-primary'
+                }
+              });
+            </script>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    {% endblock %}
 </body>
 </html>

@@ -1,0 +1,44 @@
+{% extends 'base/panel_admin.html' %}
+
+{% block content %}
+<div class="container-fluid pt-4 px-4">
+    <div class="bg-light-subtle border rounded-3 p-4 d-flex justify-content-between align-items-center flex-wrap custom-gradient text-white">
+        <h3 class="mb-0">Registrar nuevo clientes</h3>
+    </div>
+</div>
+
+<div class="container-fluid pt-4 px-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6"> <!-- Ajuste responsivo: 100% en pantallas pequeñas y 50% en pantallas grandes -->
+            <div class="bg-light-subtle border rounded-3 p-4">
+                <form id="create-form" method="post" novalidate>
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">
+                            {{ field.label }}{% if field.field.required %}
+                            <span class="text-danger">*</span>{% endif %}
+                        </label>
+                        {{ field }}
+                        {% if field.errors %}
+                        <div class="alert alert-danger d-flex align-items-center mt-2" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <div>
+                                {% for error in field.errors %}
+                                <p class="mb-0">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success">
+                        Guardar
+                    </button>
+                    <a href="{% url 'clientes_app:cliente_list' %}" class="btn btn-warning">Volver a gestión de clientes</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%}

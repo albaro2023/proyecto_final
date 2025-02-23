@@ -1,44 +1,87 @@
 {% extends 'base/panel_admin.html' %}
 
 {% block content %}
-<div class="container-fluid pt-4 px-4">
-    <div class="bg-light-subtle border rounded-3 p-4 d-flex justify-content-between align-items-center flex-wrap custom-gradient text-white">
-        <h3 class="mb-0">Gestión Clientes</h3>
-        <div>
-          <a href="#" class="btn btn-success btn-sm"><i class="bi bi-plus"></i>
-            Registrar cliente</a>
+    <div class="container-fluid pt-4 px-4">
+        <div class="bg-light-subtle border rounded-3 p-4 d-flex justify-content-between align-items-center flex-wrap custom-gradient text-white">
+            <h3 class="mb-0">Gestión Clientes</h3>
+            <div>
+                <a href="{% url 'clientes_app:cliente_create' %}" class="btn btn-success btn-sm">
+                    <i class="bi bi-plus"></i> Registrar cliente
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container-fluid pt-4 px-4">
-    <div class="table-responsive">
-        <table class="table table-hover align-middle">
-            <thead class="table-primary">
-                <tr>
-                <th>NOMBRES</th>
-                <th>APELLIDOS</th>
-                <th>EMAIL</th>
-                <th>TELÉFONO</th>
-                <th>ACCIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cliente in clientes %}
-                <tr>
-                    <td>{{ cliente.nombre }}</td>
-                    <td>{{ cliente.apellido }}</td>
-                    <td>{{ cliente.email }}</td>
-                    <td>{{ cliente.telefono }}</td>
-                    <td>
-                        <a href="#" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
-                        <a href="#" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar</a>
-                        <a href="#" class="btn btn-info btn-sm"><i class="bi bi-eye"></i> Detalle</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="container-fluid pt-4 px-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th>NOMBRES</th>
+                        <th>APELLIDOS</th>
+                        <th>EMAIL</th>
+                        <th>TELÉFONO</th>
+                        <th>DIRECCIÓN</th>
+                        <th>FEC. REG.</th>
+                        <th>FEC. ACT.</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.nombre }}</td>
+                        <td>{{ cliente.apellido }}</td>
+                        <td>{{ cliente.email }}</td>
+                        <td>{{ cliente.telefono }}</td>
+                        <td>{{ cliente.direccion }}</td>
+                        <td>{{ cliente.created|date:"d/m/Y" }}</td>
+                        <td>{{ cliente.updated|date:"d/m/Y" }}</td>
+                        <td>
+                            <a href="{% url 'clientes_app:cliente_update' cliente.pk %}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
+                            <form id="delete-form-{{ cliente.pk }}" action="{% url 'clientes_app:cliente_delete' cliente.pk %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="button" onclick="confirmDelete('{{ cliente.pk }}')" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-{% endblock content%}
+
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                Swal.fire({
+                    title: '¡Éxito!',
+                    text: '{{ message }}',
+                    icon: 'success',
+                    confirmButtonColor: '#28a745',
+                });
+            {% endfor %}
+        {% endif %}
+
+        function confirmDelete(clienteId) {
+            Swal.fire({
+                title: "¿Estás seguro?",
+                text: "Una vez eliminado, no podrás recuperar este cliente.",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#dc3545",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById("delete-form-" + clienteId).submit();
+                }
+            });
+        }
+    </script>
+{% endblock %}
+
